@@ -17,6 +17,27 @@ function getOwners () {
 }
 
 
+   function getOwnerPets() {
+     fetch(apiUrl + 'owners')
+     .then(res => res.json())
+     .then(json => ownerPetOutput.innerText = JSON.stringify(json, undefined, 2))
+     .then(json => { 
+        console.log(json.getOwnerPets);
+         json.getOwnerPets.forEach(owner => {  
+            const ownersWithPets = document.getElementById("OwnerPetOutput")
+            const ownersWithPetsDiv = createElement("h1", "", ownersWithPets, cardStyle)
+            ownersWithPets.addEventListener("click",function() {
+               window.location = "../html/index.html";
+         });
+         createElement("h4", `owner name ${ownersWithPets.firstName}, pets ${ownersWithPets.pets}`)
+     })
+     .catch(err => console.log(err))
+ })
+
+
+// id, firstName, lastName, address, city, pets [], telephone
+// pets is an array of objects - id, name, birthDate,owners, visits [], type{id, name}
+
 function createElement(elementType, text, appendTo, className) {
     const element = document.createElement(elementType);
     element.innerText = text;
@@ -24,5 +45,3 @@ function createElement(elementType, text, appendTo, className) {
     element.className = className;
     return element;
    }
-// id, firstName, lastName, address, city, pets [], telephone
-// pets is an array of objects - id, name, birthDate,owners, visits [], type{id, name}
